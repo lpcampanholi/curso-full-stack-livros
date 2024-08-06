@@ -1,0 +1,8 @@
+.opcoes {
+  display: flex;
+  gap: 3em;
+}
+
+.opcao {
+  cursor: pointer;
+}
