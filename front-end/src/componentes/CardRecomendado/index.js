@@ -35,7 +35,7 @@ color: white;
   }
 `;
 
-function Card({ titulo, subtitulo, descricao, src }) {
+function CardRecomendado({ titulo, subtitulo, descricao, src }) {
   return (
     <Container>
     <img src={src} alt="imagem"/>
@@ -49,4 +49,4 @@ function Card({ titulo, subtitulo, descricao, src }) {
   );
 };
 
-export default Card;
+export default CardRecomendado;

@@ -1,7 +1,9 @@
 import Input from "../Input";
 import styled from "styled-components";
-import { useState } from "react";
-import { livros } from "./dadosPesquisa";
+import { useEffect, useState } from "react";
+import { getLivros } from "../../servicos/livros";
+import { postFavorito } from "../../servicos/favoritos";
+import livroImg from "../../imagens/livro.png"
 
 const Container = styled.section`
   color: white;
@@ -9,7 +11,12 @@ const Container = styled.section`
 `;
 
 const Titulo = styled.h2`
-  margin-bottom: 0.2em;
+  color: white;
+  font-size: 2em;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.5em 0;
+  margin-top: 0;
 `;
 
 const Subtitulo = styled.h3`
@@ -23,10 +30,11 @@ const LivrosResultado = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 1em;
-  height: 80%;
-  margin-left: 15em;
-  margin-top: 1em;
-  margin-bottom: 1em;
+  border: 1px solid white;
+  border-radius: 0.5em;
+  margin: 1em 25%;
+  padding: 0.5em 5%;
+  cursor: pointer;
 
   img {
     width: 5em;
@@ -35,9 +43,23 @@ const LivrosResultado = styled.div`
 `;
 
 function Pesquisa() { 
-  const [livrosPesquisados, setLivrosPesquisados] = useState(livros);
+  const [livrosPesquisados, setLivrosPesquisados] = useState([]);
+  const [livros, setLivros] = useState([]);
 
-  console.log(livrosPesquisados);
+ useEffect(() => {
+  fetchLivros();
+ }, []);
+
+  async function fetchLivros() {
+    const livrosDaAPI = await getLivros();
+    setLivros(livrosDaAPI);
+    setLivrosPesquisados(livrosDaAPI);
+  };
+
+  async function insertFavorito(id) {
+    await postFavorito(id);
+    alert(`Livro de id:${id} inserido!`);
+  };
 
   return (
     <Container>
@@ -48,9 +70,9 @@ function Pesquisa() {
         const resultadoPesquisa = livros.filter(livro => livro.nome.toLowerCase().includes(textoDigitado));
         setLivrosPesquisados(resultadoPesquisa);
       }}/>
-      { livrosPesquisados.map( livro => (
-        <LivrosResultado>
-          <img src={livro.src} alt="imagem da capa do livro" />
+      { livrosPesquisados.map( (livro, i) => (
+        <LivrosResultado key={i} onClick={() => insertFavorito(livro.id)}>
+          <img src={livroImg} alt="capa do livro" />
           <p>{livro.nome}</p>
         </LivrosResultado>
       ) ) }

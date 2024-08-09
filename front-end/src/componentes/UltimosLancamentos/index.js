@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { livros } from "./dadosUltimosLancamentos.js";
 import { Titulo } from "../Titulo";
-import Card from "../Card/";
 import imagemAngular from "../../imagens/livro2.png";
+import CardRecomendado from "../CardRecomendado/index.js";
 
 
 const Container = styled.section`
@@ -29,14 +29,14 @@ function UltimosLancamentos() {
     <Container>
       <Titulo cor="#EB9B00">ÚLTIMOS LANÇAMENTOS</Titulo>
       <ContainerLivros>
-        {livros.map(livro => (
-          <Livro>
+        {livros.map((livro, i) => (
+          <Livro key={i}>
             <img src={livro.src} alt="livro"/>
             <p>{livro.nome}</p>
           </Livro>
           ))}
       </ContainerLivros>
-      <Card
+      <CardRecomendado
         titulo="Talvez você se interesse por..."
         subtitulo="Angular 11"
         descricao="Construindo uma aplicação integrada com a plataforma Google"

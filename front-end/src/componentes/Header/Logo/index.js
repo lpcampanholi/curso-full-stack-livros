@@ -1,4 +1,4 @@
-import logo from "../../imagens/logo.svg";
+import logo from "../../../imagens/logo.svg";
 import styled from "styled-components";
 
 const LogoContainer = styled.div`
@@ -11,7 +11,7 @@ function Logo() {
   return (
     <LogoContainer>
       <img src={logo} alt="Logo da imagem"/>
-      <p>Universo<strong>Literário</strong></p>
+      <p>Alura<strong>Books</strong></p>
     </LogoContainer>
   );
 };
